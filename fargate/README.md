@@ -6,13 +6,16 @@ export XRAY_POLICY_ARN=$(aws iam create-policy --policy-name --policy-document f
 aws iam attach-role-policy --role-name $TASK_ROLE_NAME --policy-arn $XRAY_POLICY_ARN
 ```
 
-If this is your first time using ECS you will need to create the ECS Task Execution Role
+If this is your first time using ECS you will need to create the ECS Task Execution Role.
 
 ```
 aws iam create-role --role-name ecsTaskExecutionRole --assume-role-policy-document file://ecs-trust-pol.json
-export ECS_EXECUTION_POLICY_ARN=$(aws iam list-policies --scope AWS --query 'Policies[?PolicyName==`AmazonECSTaskEtionRolePolicy`].Arn' | jq -r '.[]')
+export ECS_EXECUTION_POLICY_ARN=$(aws iam list-policies --scope AWS --query 'Policies[?PolicyName==`AmazonECSTaskExecutionRolePolicy`].Arn' | jq -r '.[]')
 aws iam attach-role-policy --role-name ecsTaskExecutionRole --policy-arn $ECS_EXECUTION_POLICY_ARN
 ```
+
+If you've already created ECS Execution Role, export it's arn.  
+**NOTE**: If you're using a Execution Role name that is different that ecsTaskExecutionRole, update the task definitions with your role's arn.
 
 Get a list of subnets in a VPC.  Replace *<vpc_id>* with the vpc id of the vpc where you intend to deploy the services.
 
