@@ -14,7 +14,7 @@ export ECS_EXECUTION_POLICY_ARN=$(aws iam list-policies --scope AWS --query 'Pol
 aws iam attach-role-policy --role-name ecsTaskExecutionRole --policy-arn $ECS_EXECUTION_POLICY_ARN
 ```
 
-Export the Arns of the Task Role and the Task execution role. 
+Export the Arns of the task role and the task execution role. 
 
 ```
 export TASK_ROLE_ARN=${aws iam get-role --role-name <role_name> --query "Role.Arn" --output text}
