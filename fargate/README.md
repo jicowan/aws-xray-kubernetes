@@ -1,8 +1,8 @@
-Create a task role that allows the task to write traces to AWS X-Ray.  Replace *<role_name>* with your role name. 
+Create a task role that allows the task to write traces to AWS X-Ray.  Replace *<role_name>* with your role name and *<policy_name>* with your policy name. 
 
 ```
 export TASK_ROLE_NAME=$(aws iam create-role --role-name <role_name> --assume-role-policy-document file://ecs-trust-pol.json | jq -r '.Role.RoleName')
-export XRAY_POLICY_ARN=$(aws iam create-policy --policy-name --policy-document file://xray-pol.json | jq -r '.Policy.Arn')
+export XRAY_POLICY_ARN=$(aws iam create-policy --policy-name <policy_name> --policy-document file://xray-pol.json | jq -r '.Policy.Arn')
 aws iam attach-role-policy --role-name $TASK_ROLE_NAME --policy-arn $XRAY_POLICY_ARN
 ```
 
