@@ -82,8 +82,14 @@ export REGISTRY_URL_SERVICE_B=$(aws ecr describe-repositories --repository-name 
 export REGISTRY_URL_XRAY_DAEMON=$(aws ecr describe-repositories --repository-name xray-daemon | jq -r '.repositories[].repositoryUri')
 export REGISTRY_URL_SERVICE_A=$(aws ecr describe-repositories --repository-name service-a | jq -r '.repositories[].repositoryUri')
 ```
+Create log groups
 
-Create service B.
+```
+aws logs create-log-group --log-group-name /ecs/service-b
+aws logs create-log-group --log-group-name /ecs/service-a
+```
+
+Create service B
 
 ```
 cd ./service-b/
